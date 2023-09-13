@@ -1,11 +1,19 @@
-#include <stdio.h>
-#include <main.h>
+#include "holberton.h"
 /**
- * main - use putchar
- * Return 0 (sucess)
+ * main - Entry point
+ *
+ * Return: Alway 0 (Sucess)
  */
+
 int main(void)
 {
-	_putchar("_putchar")
-	return (0)
+	char *h = "Holberton\n";
+
+	while (*h)
+	{
+		_putchar(*h);
+		h++;
+	}
+	return (0);
 }
+
