@@ -1,6 +1,6 @@
 #include "main.h"
 /**
- * Don't swap horses in crossing a stream
+ *swap- Don't swap horses in crossing a stream
  * @n = input
  * Return : n
  */
