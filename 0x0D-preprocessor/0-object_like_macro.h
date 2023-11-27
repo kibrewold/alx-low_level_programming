@@ -1,4 +1,4 @@
 /**
-*SIZE - is defined macro.
+*@SIZE - is defined macro.
 */
 #define SIZE 1024
