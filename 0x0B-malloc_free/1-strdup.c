@@ -9,16 +9,16 @@
  */
 int main(void)
 {
-	char *s;
+	char *str;
 
-	s = _strdup("ALX SE);
-	if (s == NULL)
+	str = _strdup("ALX SE");
+	if (str == NULL)
 	{
 		printf("failed to allocate memory\n");
 		return (1);
 	}
-	printf("%s\n", s);
-	free(s);
+	printf("%s\n", str);
+	free(str);
 	return (0);
 }
 
