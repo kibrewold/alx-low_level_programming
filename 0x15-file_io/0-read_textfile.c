@@ -1,45 +1,44 @@
-#include "holberton.h"
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
+#include "main.h"
 
 /**
- * read_textfile - reads a txt file and prints it to standard output .
- * @filename: name of the txt file to read .
- * @letters: number of letters it should read and print
+ * read_textfile - Entry point
+ * Description: Reads a text file and prints it to the POSIX standard output
+ * @filename: Name of the file to be read
+ * @letters: The number of letters it should read and print
  *
- * Return: actual number of letters it could read and print
+ * Return: The actual number of letters it could read and print
+ *		if the file can not be opened or read, return 0
+ *		if filename is NULL return 0
+ *		if write fails or does not write the expected amount of bytes, return 0
  */
+
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	int fd;
-	ssize_t r, w;
-	char *buffer;
+	char *buffer; /* Buffer to store text */
+	ssize_t fd, my_read, my_write;
+	/* File descriptor, number of bytes read or written */
 
-	if (filename == NULL)
+	/* Check if filename is NULL */
+	if (!filename)
 		return (0);
-	fd = open(filename, O_RDWR);
-	if (fd == -1)
+	/* Allocate memory for the buffer */
+	buffer = malloc(sizeof(char) * letters);
+	if (!buffer)
 		return (0);
-	buffer = malloc(letters);
-	if (buffer == NULL)
-	{
-		close(fd);
-		return (0);
-	}
-	r = read(fd, buffer, letters);
-	close(fd);
-	if (r == -1)
+	/* Open the file to be read and store fd*/
+	fd = open(filename, O_RDONLY);
+	/* Read from the file and stores number of bytes read */
+	my_read = read(fd, buffer, letters);
+	/* Write to standard output and store the number of bytes written */
+	my_write = write(STDOUT_FILENO, buffer, my_read);
+	if (fd == -1 || my_read == -1 || my_write != my_read)
 	{
 		free(buffer);
 		return (0);
 	}
-	w = write(STDOUT_FILENO, buffer, r);
+	/* Free the memory and close the file descriptor (fd) */
 	free(buffer);
-	if (r != w)
-		return (0);
-	return (w);
+	close(fd);
+
+	return (my_write);
 }
